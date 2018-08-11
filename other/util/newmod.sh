@@ -10,7 +10,7 @@ then
 fi
 
 # Config
-SRC=ExampleMod
+SRC=ModTemplate
 MCVER=1.12.2
 FORGEVER=14.23.4.2739
 MAPPINGVER=snapshot_20180720
@@ -42,7 +42,7 @@ SRCLOWER=${SRC,,}
 # lower case version of dest name
 NAMELOWER=${NAME,,}
 # template namespace
-SRCGROUP=examplens
+SRCGROUP=templatens
 # dest namespace
 GROUPSLASH=`tr . / <<< "${GROUPDOT}"`
 

@@ -1,4 +1,4 @@
-package examplens.examplemod;
+package templatens.modtemplate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +11,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES, updateJSON = Reference.UPDATEJSON, certificateFingerprint=Reference.FINGERPRINT)
-public class ExampleMod
+public class ModTemplate
 {
     @Mod.Instance(Reference.MOD_ID)
-    public static ExampleMod instance;
+    public static ModTemplate instance;
 
     public static Logger logger;
 

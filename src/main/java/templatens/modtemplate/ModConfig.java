@@ -1,4 +1,4 @@
-package examplens.examplemod;
+package templatens.modtemplate;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.Comment;

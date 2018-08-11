@@ -1,4 +1,4 @@
-# ExampleMod
+# ModTemplate
 
 This is an automated Minecraft Forge mod template.
 
@@ -18,4 +18,6 @@ Running ```newmod.sh NewMod``` will then create:
 
 ## Notes
 
-* To debug, '''cp build/resources/main/mcmod.info src/resources/mcmod.info''' beforehand since debugger does not run build with gradle string replacement.  Then '''git checkout src/resources/mcmod.info''' afterward to revert back to generated mcmod.info template.
+* To debug:
+   * '''cp build/resources/main/mcmod.info src/resources/mcmod.info''' beforehand since debugger does not run build with gradle string replacement.  Then '''git checkout src/resources/mcmod.info''' afterward to revert back to generated mcmod.info template.
+   * Also comment out Gradle string replacements in Reference,java and uncomment the explicit string constants below it (since debug won't do the Gradle string replacement)

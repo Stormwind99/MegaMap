@@ -1,4 +1,4 @@
-package examplens.examplemod;
+package templatens.modtemplate;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

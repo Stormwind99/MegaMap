@@ -1,10 +1,10 @@
-package examplens.examplemod;
+package templatens.modtemplate;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class ClientProxy implements ISidedProxy
+public class ServerProxy implements ISidedProxy
 {
     @Override
     public void preInit(FMLPreInitializationEvent event)
