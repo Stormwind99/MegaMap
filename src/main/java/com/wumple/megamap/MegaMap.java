@@ -1,7 +1,9 @@
-package templatens.modtemplate;
+package com.wumple.megamap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.wumple.util.mod.ModBase;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -11,38 +13,39 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES, updateJSON = Reference.UPDATEJSON, certificateFingerprint=Reference.FINGERPRINT)
-public class ModTemplate
+public class MegaMap extends ModBase
 {
     @Mod.Instance(Reference.MOD_ID)
-    public static ModTemplate instance;
-
-    public static Logger logger;
+    public static MegaMap instance;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        logger = event.getModLog();
+        super.preInit(event);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) 
-    { }
+    {
+    	super.init(event);
+    }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
-    { }
+    {
+    	super.postInit(event);
+    }
 
     @EventHandler
+    @Override
     public void onFingerprintViolation(FMLFingerprintViolationEvent event)
     {
-        if (logger == null)
-        {
-            logger = LogManager.getLogger(Reference.MOD_ID);
-        }
-        if (logger != null)
-        {
-            logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author!");
-            logger.warn("Expected " + event.getExpectedFingerprint() + " found " + event.getFingerprints().toString());
-        }
+        super.onFingerprintViolation(event);
+    }
+    
+    @Override
+    public Logger getLoggerFromManager()
+    {
+        return LogManager.getLogger(Reference.MOD_ID);
     }
 }

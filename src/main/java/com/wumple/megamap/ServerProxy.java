@@ -1,4 +1,4 @@
-package templatens.modtemplate;
+package com.wumple.megamap;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

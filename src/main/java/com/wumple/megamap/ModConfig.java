@@ -1,7 +1,6 @@
-package templatens.modtemplate;
+package com.wumple.megamap;
 
 import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.Config.Comment;
 import net.minecraftforge.common.config.Config.Name;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -12,6 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class ModConfig
 {
+	@Name("Default scale")
+	@Config.Comment("The map scale new megamaps start with by default")
+	public static byte defaultScale = 1;
 
     @Name("Debugging")
     @Config.Comment("Debugging options")

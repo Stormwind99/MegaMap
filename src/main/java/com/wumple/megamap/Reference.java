@@ -1,4 +1,4 @@
-package templatens.modtemplate;
+package com.wumple.megamap;
 
 public class Reference
 {
@@ -16,11 +16,11 @@ public class Reference
 
     /*
     // debugger settings since no Gradle string replacement
-    public static final String MOD_ID = "modtemplate";
-    public static final String MOD_NAME = "ModTemplate";
+    public static final String MOD_ID = "megamap";
+    public static final String MOD_NAME = "MegaMap";
     public static final String BUILD = "99";
     public static final String MOD_VERSION = "9.9.9";
-    public static final String DEPENDENCIES = "";
+    public static final String DEPENDENCIES = "required-after:wumpleutil@[2.12,)";
     public static final String UPDATEJSON = "update.json";
     public static final String FINGERPRINT = "";
     */
