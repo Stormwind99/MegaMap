@@ -41,6 +41,16 @@ public class ItemMegaMap extends ItemMap
         RegistrationHelpers.nameHelper(this, ID);
     }
     
+    public static boolean isMapScaleValid(byte scale)
+    {
+    	return (scale >= 0) && (scale < ModConfig.maxScale);
+    }
+    
+    public boolean isMyMapScaleValid(byte scale)
+    {
+    	return isMapScaleValid(scale);
+    }
+    
     public static ItemStack setupNewMap(World worldIn, double worldX, double worldZ, byte scale, boolean trackingPosition, boolean unlimitedTracking)
     {
         ItemStack itemstack = new ItemStack(ObjectHolder.filled_megamap_item, 1, worldIn.getUniqueDataId("map"));
@@ -64,7 +74,7 @@ public class ItemMegaMap extends ItemMap
 
         if (mapdata != null)
         {
-            mapdata1.scale = (byte)(mapdata.scale + p_185063_2_); // (byte)MathHelper.clamp(mapdata.scale + p_185063_2_, 0, 4);
+            mapdata1.scale = (byte)MathHelper.clamp(mapdata.scale + p_185063_2_, 0, ModConfig.maxScale);
             mapdata1.trackingPosition = mapdata.trackingPosition;
             mapdata1.calculateMapCenter((double)mapdata.xCenter, (double)mapdata.zCenter, mapdata1.scale);
             mapdata1.dimension = mapdata.dimension;
@@ -143,7 +153,7 @@ public class ItemMegaMap extends ItemMap
             }
             
             // ADDED
-            pixelViewRange = Math.min(1, pixelViewRange);
+            pixelViewRange = Math.max(1, pixelViewRange);
 
             MapData.MapInfo mapdata$mapinfo = data.getMapInfo((EntityPlayer)viewer);
             ++mapdata$mapinfo.step;
@@ -314,5 +324,21 @@ public class ItemMegaMap extends ItemMap
         }
     }
 
+    protected static void enableMapTracking(ItemStack p_185064_0_, World p_185064_1_)
+    {
+        MapData mapdata = getMyMapData(p_185064_0_, p_185064_1_);
+        p_185064_0_.setItemDamage(p_185064_1_.getUniqueDataId("map"));
+        MapData mapdata1 = new MegaMapData("map_" + p_185064_0_.getMetadata());
+        mapdata1.trackingPosition = true;
 
+        if (mapdata != null)
+        {
+            mapdata1.xCenter = mapdata.xCenter;
+            mapdata1.zCenter = mapdata.zCenter;
+            mapdata1.scale = mapdata.scale;
+            mapdata1.dimension = mapdata.dimension;
+            mapdata1.markDirty();
+            p_185064_1_.setData("map_" + p_185064_0_.getMetadata(), mapdata1);
+        }
+    }
 }

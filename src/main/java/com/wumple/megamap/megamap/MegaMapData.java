@@ -20,7 +20,7 @@ public class MegaMapData extends MapData {
         this.xCenter = nbt.getInteger("xCenter");
         this.zCenter = nbt.getInteger("zCenter");
         this.scale = nbt.getByte("scale");
-        //this.scale = (byte)MathHelper.clamp(this.scale, 0, 4);
+        //this.scale = (byte)MathHelper.clamp(this.scale, 0, ModConfig.maxScale);
 
         if (nbt.hasKey("trackingPosition", 1))
         {

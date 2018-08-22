@@ -1,5 +1,5 @@
 {
-    "parent": "minecraft:item/generated",
+    "parent": "item/generated",
     "textures": {
         "layer0": "megamap:items/map_filled",
         "layer1": "megamap:items/map_filled_markings"

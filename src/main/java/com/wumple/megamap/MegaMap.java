@@ -28,6 +28,7 @@ public class MegaMap extends ModBase
     public void init(FMLInitializationEvent event) 
     {
     	super.init(event);
+    	ObjectHolder.RegistrationHandler.init(event);
     }
 
     @EventHandler

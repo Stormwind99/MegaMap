@@ -2,6 +2,7 @@ package com.wumple.megamap;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.Name;
+import net.minecraftforge.common.config.Config.RangeInt;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -12,8 +13,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ModConfig
 {
 	@Name("Default scale")
-	@Config.Comment("The map scale new megamaps start with by default")
+	@Config.Comment("The map scale new mega maps start with by default")
 	public static byte defaultScale = 1;
+	
+	@Name("Max scale")
+	@Config.Comment("The map scale maximum for mega maps")
+	@RangeInt(min=0, max=127)
+	public static byte maxScale = 10;
 
     @Name("Debugging")
     @Config.Comment("Debugging options")

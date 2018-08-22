@@ -21,7 +21,8 @@ public class MegaMapUtil {
     	// byte range is -128 to 127
     	if (itemstack.getItem() instanceof ItemMegaMap)
     	{
-    		return (scale > -4) && (scale < 127);
+    		ItemMegaMap item = (ItemMegaMap)(itemstack.getItem());
+    		return item.isMyMapScaleValid(scale);
     	}
     	else
     	{
