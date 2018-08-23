@@ -1,5 +1,7 @@
 package com.wumple.megamap.megamap;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import com.google.common.collect.HashMultiset;
@@ -14,6 +16,7 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,9 +26,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMegaMap extends ItemMap
 {
@@ -339,6 +345,29 @@ public class ItemMegaMap extends ItemMap
             mapdata1.dimension = mapdata.dimension;
             mapdata1.markDirty();
             p_185064_1_.setData("map_" + p_185064_0_.getMetadata(), mapdata1);
+        }
+    }
+    
+    /**
+     * allows items to add custom lines of information to the mouseover description
+     */
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+    {
+        if (flagIn.isAdvanced())
+        {
+            MapData mapdata = worldIn == null ? null : this.getMapData(stack, worldIn);
+
+            if (mapdata != null)
+            {
+                tooltip.add(new TextComponentTranslation("filled_map.scale", 1 << mapdata.scale).getUnformattedText());
+                tooltip.add(new TextComponentTranslation("filled_map.level", mapdata.scale, Integer.valueOf(ModConfig.maxScale)).getUnformattedText());
+            }
+            else
+            {
+                tooltip.add(new TextComponentTranslation("filled_map.unknown").getUnformattedText());
+            }
         }
     }
 }
