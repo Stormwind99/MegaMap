@@ -1,4 +1,7 @@
 {
+  "_comment": [
+      "Craft a mega map"
+   ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "###",
@@ -7,13 +10,16 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:paper"
+      "item": "minecraft:paper",
+      "data": 32767
     },
     "X": {
-      "item": "minecraft:compass"
+      "item": "minecraft:compass",
+      "data": 32767
     }
   },
   "result": {
-    "item": "megamap:megamap_empty"
+    "item": "megamap:megamap_empty",
+    "data": 0
   }
 }

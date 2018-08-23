@@ -5,6 +5,7 @@
     "1.12.2-recommended": "1.0.0"
   },
   "1.12.2": {
+    "1.0.3": "Recipes",
     "1.0.2": "Fix items",
     "1.0.0": "Initial version"
   }

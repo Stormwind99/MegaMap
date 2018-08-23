@@ -1,4 +1,4 @@
-package com.wumple.megamap.recipes;
+package com.wumple.megamap.util;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;

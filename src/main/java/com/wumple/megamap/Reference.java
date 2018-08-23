@@ -17,7 +17,7 @@ public class Reference
     /*
     // debugger settings since no Gradle string replacement
     public static final String MOD_ID = "megamap";
-    public static final String MOD_NAME = "MegaMap";
+    public static final String MOD_NAME = "Mega Map";
     public static final String BUILD = "99";
     public static final String MOD_VERSION = "9.9.9";
     public static final String DEPENDENCIES = "required-after:wumpleutil@[2.12,)";

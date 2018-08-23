@@ -1,0 +1,25 @@
+{
+  "_comment": [
+      "Extend a mega map, zooming out further."
+   ],
+  "type": "megamap:megamap_extending",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:paper",
+      "data": 0
+    },
+    "X": {
+      "type": "forge:ore_dict",
+      "ore": "mapFilled"
+    }
+  },
+  "result": {
+    "item": "megamap:megamap_filled",
+    "data": 0
+  }
+}

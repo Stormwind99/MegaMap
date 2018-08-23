@@ -43,7 +43,7 @@ public class ItemMegaMap extends ItemMap
     
     public static boolean isMapScaleValid(byte scale)
     {
-    	return (scale >= 0) && (scale < ModConfig.maxScale);
+    	return (scale >= 0) && (scale <= ModConfig.maxScale);
     }
     
     public boolean isMyMapScaleValid(byte scale)
