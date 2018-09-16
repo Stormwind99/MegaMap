@@ -1,7 +1,9 @@
-package com.wumple.megamap.megamap;
+package com.wumple.megamap.api;
 
 import com.wumple.megamap.ModConfig;
 import com.wumple.megamap.ObjectHolder;
+import com.wumple.megamap.megamap.ItemEmptyMegaMap;
+import com.wumple.megamap.megamap.ItemMegaMap;
 import com.wumple.util.base.misc.Util;
 
 import net.minecraft.init.Items;
@@ -12,28 +14,47 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
 
-public class MegaMapUtil
+public class MegaMapAPI implements IMegaMapAPI
 {
+    public static IMegaMapAPI instance;
+    
+    public static IMegaMapAPI getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new MegaMapAPI();
+        }
+        return instance;
+    }
+    
+    @Override
+    public ItemStack setupNewMap(World worldIn, double worldX, double worldZ, byte scale, boolean trackingPosition, boolean unlimitedTracking)
+    {
+        return ItemMegaMap.setupNewMap(worldIn, worldX, worldZ, scale, trackingPosition, unlimitedTracking);
+    }
 
-    public static boolean isEmptyMap(ItemStack itemstack1)
+    @Override
+    public boolean isEmptyMap(ItemStack itemstack1)
     {
         return (itemstack1.getItem() == Items.MAP) ||
                 (itemstack1.getItem() instanceof ItemEmptyMegaMap);
     }
 
-    public static boolean isFilledMap(ItemStack itemstack1)
+    @Override
+    public boolean isFilledMap(ItemStack itemstack1)
     {
         return (itemstack1.getItem() == Items.FILLED_MAP)
                 || (itemstack1.getItem() instanceof ItemMegaMap);
     }
 
-    public static boolean isMapScaleValid(ItemStack itemstack, byte scale)
+    @Override
+    public boolean isMapScaleValid(ItemStack itemstack, byte scale)
     {
         // byte range is -128 to 127
         if (itemstack.getItem() instanceof ItemMegaMap)
         {
-            ItemMegaMap item = (ItemMegaMap) (itemstack.getItem());
-            return item.isMyMapScaleValid(scale);
+            IItemMegaMap item = (IItemMegaMap) (itemstack.getItem());
+            return item.isAMapScaleValid(scale);
         }
         else
         {
@@ -41,7 +62,8 @@ public class MegaMapUtil
         }
     }
 
-    public static ItemStack copyMap(ItemStack itemstack, int i)
+    @Override
+    public ItemStack copyMap(ItemStack itemstack, int i)
     {
         Item srcItem = itemstack.getItem();
         if (ModConfig.disableVanillaRecipes)
@@ -63,7 +85,8 @@ public class MegaMapUtil
         return itemstack2;
     }
 
-    public static boolean isExplorationMap(MapData mapData)
+    @Override
+    public boolean isExplorationMap(MapData mapData)
     {
         if ((mapData != null) && (mapData.mapDecorations != null))
         {
@@ -79,11 +102,24 @@ public class MegaMapUtil
         return false;
     }
     
-    public static boolean isExplorationMap(ItemStack itemstack, World worldIn)
+    @Override
+    public boolean isExplorationMap(ItemStack itemstack, World worldIn)
     {
         ItemMap item = Util.as(itemstack.getItem(), ItemMap.class);
         MapData mapdata = (item != null) ? item.getMapData(itemstack, worldIn) : null;
         
         return isExplorationMap(mapdata);
+    }
+    
+    @Override
+    public Item getFilledMegaMapItem()
+    {
+        return ObjectHolder.filled_megamap_item;
+    }
+    
+    @Override
+    public Item getEmptyMegaMapItem()
+    {
+        return ObjectHolder.empty_megamap_item;
     }
 }

@@ -2,7 +2,7 @@ package com.wumple.megamap;
 
 import com.wumple.megamap.megamap.ItemEmptyMegaMap;
 import com.wumple.megamap.megamap.ItemMegaMap;
-import com.wumple.megamap.util.RecipeUtil;
+import com.wumple.util.crafting.RecipeUtil;
 import com.wumple.util.misc.RegistrationHelpers;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

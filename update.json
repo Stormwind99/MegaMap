@@ -1,10 +1,12 @@
 {
   "homepage": "https://github.com/Stormwind99/MegaMap",
   "promos": {
-    "1.12.2-latest": "1.0.4",
-    "1.12.2-recommended": "1.0.4"
+    "1.12.2-latest": "1.0.6",
+    "1.12.2-recommended": "1.0.6"
   },
   "1.12.2": {
+    "1.0.6": "Extra tooltip debug info",
+    "1.0.5": "Fixed API factory for Pantography integration",
     "1.0.4": "Fixed dedicated server crash by moving ItemMeshDefinition registration into sided ClientProxy",
     "1.0.3": "Recipes",
     "1.0.2": "Fix items",

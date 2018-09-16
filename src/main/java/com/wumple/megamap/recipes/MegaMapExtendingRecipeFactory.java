@@ -4,9 +4,9 @@ import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 import com.wumple.megamap.Reference;
-import com.wumple.megamap.megamap.MegaMapUtil;
-import com.wumple.megamap.util.RecipeUtil;
+import com.wumple.megamap.api.MegaMapAPI;
 import com.wumple.util.base.misc.Util;
+import com.wumple.util.crafting.RecipeUtil;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemMap;
@@ -69,7 +69,7 @@ public class MegaMapExtendingRecipeFactory implements IRecipeFactory
                 {
                     ItemStack itemstack1 = inv.getStackInSlot(i);
 
-                    if (MegaMapUtil.isFilledMap(itemstack1))
+                    if (MegaMapAPI.getInstance().isFilledMap(itemstack1))
                     {
                         itemstack = itemstack1;
                     }
@@ -88,14 +88,14 @@ public class MegaMapExtendingRecipeFactory implements IRecipeFactory
                     {
                         return false;
                     }
-                    else if (MegaMapUtil.isExplorationMap(mapdata))
+                    else if (MegaMapAPI.getInstance().isExplorationMap(mapdata))
                     {
                         return false;
                     }
                     else
                     {
                         byte testScale = (byte) (mapdata.scale + 1);
-                        return MegaMapUtil.isMapScaleValid(itemstack, testScale);
+                        return MegaMapAPI.getInstance().isMapScaleValid(itemstack, testScale);
                     }
                 }
             }
@@ -112,7 +112,7 @@ public class MegaMapExtendingRecipeFactory implements IRecipeFactory
             {
                 ItemStack itemstack1 = inv.getStackInSlot(i);
 
-                if (MegaMapUtil.isFilledMap(itemstack1))
+                if (MegaMapAPI.getInstance().isFilledMap(itemstack1))
                 {
                     itemstack = itemstack1;
                 }

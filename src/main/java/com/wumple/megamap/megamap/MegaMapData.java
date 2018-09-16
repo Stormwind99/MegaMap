@@ -1,9 +1,11 @@
 package com.wumple.megamap.megamap;
 
+import com.wumple.megamap.api.IMegaMapData;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.storage.MapData;
 
-public class MegaMapData extends MapData {
+public class MegaMapData extends MapData implements IMegaMapData {
 
     public MegaMapData(String mapname)
     {

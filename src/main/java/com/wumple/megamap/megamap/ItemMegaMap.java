@@ -10,6 +10,7 @@ import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 import com.wumple.megamap.ModConfig;
 import com.wumple.megamap.ObjectHolder;
+import com.wumple.megamap.api.IItemMegaMap;
 import com.wumple.util.misc.RegistrationHelpers;
 
 import net.minecraft.block.BlockDirt;
@@ -33,7 +34,7 @@ import net.minecraft.world.storage.MapData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemMegaMap extends ItemMap
+public class ItemMegaMap extends ItemMap implements IItemMegaMap
 {
     public static final String ID = "megamap:megamap_filled";
 
@@ -52,7 +53,8 @@ public class ItemMegaMap extends ItemMap
     	return (scale >= 0) && (scale <= ModConfig.maxScale);
     }
     
-    public boolean isMyMapScaleValid(byte scale)
+    @Override
+    public boolean isAMapScaleValid(byte scale)
     {
     	return isMapScaleValid(scale);
     }
@@ -363,6 +365,16 @@ public class ItemMegaMap extends ItemMap
             {
                 tooltip.add(new TextComponentTranslation("filled_map.scale", 1 << mapdata.scale).getUnformattedText());
                 tooltip.add(new TextComponentTranslation("filled_map.level", mapdata.scale, Integer.valueOf(ModConfig.maxScale)).getUnformattedText());
+                /*
+                // client doesn't usually have this data
+                // TODO: look at sending SPacketMaps from server to client
+                if (ModConfig.zdebugging.debug)
+                {
+                    Rect rect = MapUtil.getMapRect(mapdata);
+                    tooltip.add(new TextComponentTranslation("misc.megamap.tooltip.debug.dims", rect.x1, rect.z1, rect.x2, rect.z2).getUnformattedText());
+                    tooltip.add(new TextComponentTranslation("misc.megamap.tooltip.debug.stats", mapdata.xCenter, mapdata.zCenter, mapdata.dimension, mapdata.trackingPosition, mapdata.unlimitedTracking).getUnformattedText());
+                }
+                */
             }
             else
             {
@@ -370,4 +382,8 @@ public class ItemMegaMap extends ItemMap
             }
         }
     }
+    
+    @Override
+    public String getID()
+    { return ID; }
 }

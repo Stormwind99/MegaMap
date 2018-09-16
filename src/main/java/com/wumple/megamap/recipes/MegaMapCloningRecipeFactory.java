@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 
 import com.google.gson.JsonObject;
 import com.wumple.megamap.Reference;
-import com.wumple.megamap.megamap.MegaMapUtil;
+import com.wumple.megamap.api.MegaMapAPI;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -57,7 +57,7 @@ public class MegaMapCloningRecipeFactory implements IRecipeFactory
 
                 if (!itemstack1.isEmpty())
                 {
-                    if (MegaMapUtil.isFilledMap(itemstack1))
+                    if (MegaMapAPI.getInstance().isFilledMap(itemstack1))
                     {
                         if (!itemstack.isEmpty())
                         {
@@ -68,7 +68,7 @@ public class MegaMapCloningRecipeFactory implements IRecipeFactory
                     }
                     else
                     {
-                        if (!MegaMapUtil.isEmptyMap(itemstack1))
+                        if (!MegaMapAPI.getInstance().isEmptyMap(itemstack1))
                         {
                             return false;
                         }
@@ -95,7 +95,7 @@ public class MegaMapCloningRecipeFactory implements IRecipeFactory
 
                 if (!itemstack1.isEmpty())
                 {
-                    if (MegaMapUtil.isFilledMap(itemstack1))
+                    if (MegaMapAPI.getInstance().isFilledMap(itemstack1))
                     {
                         if (!itemstack.isEmpty())
                         {
@@ -106,7 +106,7 @@ public class MegaMapCloningRecipeFactory implements IRecipeFactory
                     }
                     else
                     {
-                        if (!MegaMapUtil.isEmptyMap(itemstack1))
+                        if (!MegaMapAPI.getInstance().isEmptyMap(itemstack1))
                         {
                             return ItemStack.EMPTY;
                         }
@@ -118,7 +118,7 @@ public class MegaMapCloningRecipeFactory implements IRecipeFactory
 
             if (!itemstack.isEmpty() && i >= 1)
             {
-                return MegaMapUtil.copyMap(itemstack, i);
+                return MegaMapAPI.getInstance().copyMap(itemstack, i);
             }
             else
             {
