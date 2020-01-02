@@ -1,0 +1,18 @@
+{
+  "_comment": [
+      "Duplicate a mega map"
+   ],
+  "type": "megamap:megamap_cloning",
+  "ingredients": [
+      {
+          "item": "megamap:megamap_filled"
+      },
+      {
+          "item": "megamap:megamap_empty"
+      }
+  ],
+  "result": {
+    "item": "megamap:megamap_filled"
+  }
+}
+

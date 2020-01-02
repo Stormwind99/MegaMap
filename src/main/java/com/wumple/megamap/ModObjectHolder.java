@@ -1,37 +1,36 @@
 package com.wumple.megamap;
 
-import com.wumple.megamap.megamap.ItemEmptyMegaMap;
-import com.wumple.megamap.megamap.ItemMegaMap;
-import com.wumple.util.crafting.RecipeUtil;
-import com.wumple.util.misc.RegistrationHelpers;
+import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.megamap.MegaMapItem;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.ObjectHolder;
 
-@GameRegistry.ObjectHolder("megamap")
+@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+public class ModObjectHolder
+{
+    //@ObjectHolder("megamap:megamap_filled")
+    public static FilledMegaMapItem filled_megamap_item;
+
+    //@ObjectHolder("megamap:megamap_empty")
+    public static MegaMapItem empty_megamap_item;
+}
+
+/*
+@EventHandler
 public class ObjectHolder
 {
     // @GameRegistry.ObjectHolder("megamap:megamap_filled")
-    public static /* final */ Item filled_megamap_item = null;
+    public static Item filled_megamap_item = null;  // final?
 
     // @GameRegistry.ObjectHolder("megamap:megamap_empty")
-    public static /* final */ Item empty_megamap_item = null;
-
-    @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+    public static Item empty_megamap_item = null; // final?
+    
+    @Mod.EventBusSubscriber(Reference.MOD_ID)
     public static class RegistrationHandler
     {
         public static class Ids
@@ -39,14 +38,14 @@ public class ObjectHolder
             public static String[] mapFilled = { "mapAll", "mapFilled" };
             public static String[] mapEmpty = { "mapAll", "mapEmpty" };
         }
-        
+
         @SubscribeEvent
         public static void registerItems(RegistryEvent.Register<Item> event)
         {
             final IForgeRegistry<Item> registry = event.getRegistry();
 
-            filled_megamap_item = RegistrationHelpers.regHelperOre(registry, new ItemMegaMap(), Ids.mapFilled);
-            empty_megamap_item = RegistrationHelpers.regHelperOre(registry, new ItemEmptyMegaMap(), Ids.mapEmpty);
+            filled_megamap_item = RegistrationHelpers.regHelperOre(registry, new FilledMegaMapItem(), Ids.mapFilled);
+            empty_megamap_item = RegistrationHelpers.regHelperOre(registry, new MegaMapItem(), Ids.mapEmpty);
 
             registerTileEntities();
             registerMoreOreNames();
@@ -74,6 +73,7 @@ public class ObjectHolder
             ModelLoader.setCustomModelResourceLocation(filled_megamap_item, OreDictionary.WILDCARD_VALUE,
                     new ModelResourceLocation(filled_megamap_item.getRegistryName(), "inventory"));
         }
+        */
 
         /**
          * Remove crafting recipes.
@@ -81,8 +81,9 @@ public class ObjectHolder
          * @param event
          *            The event
          */
+        /*
         @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void removeRecipes(final RegistryEvent.Register<IRecipe> event)
+        public static void removeRecipes() // final RegistryEvent.Register<IRecipe> event)
         {
             if (ModConfig.disableVanillaRecipes)
             {
@@ -94,5 +95,7 @@ public class ObjectHolder
                 } );
             }
         }
+       
     }
 }
+*/

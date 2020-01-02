@@ -1,15 +1,13 @@
 package com.wumple.megamap.api;
 
 import com.wumple.megamap.ModConfig;
-import com.wumple.megamap.ObjectHolder;
-import com.wumple.megamap.megamap.ItemEmptyMegaMap;
-import com.wumple.megamap.megamap.ItemMegaMap;
-import com.wumple.util.base.misc.Util;
+import com.wumple.megamap.ModObjectHolder;
+import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.megamap.MegaMapItem;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
@@ -28,32 +26,32 @@ public class MegaMapAPI implements IMegaMapAPI
     }
     
     @Override
-    public ItemStack setupNewMap(World worldIn, double worldX, double worldZ, byte scale, boolean trackingPosition, boolean unlimitedTracking)
+    public ItemStack setupNewMap(World worldIn, int worldX, int worldZ, byte scale, boolean trackingPosition, boolean unlimitedTracking)
     {
-        return ItemMegaMap.setupNewMap(worldIn, worldX, worldZ, scale, trackingPosition, unlimitedTracking);
+        return FilledMegaMapItem.setupNewMap(worldIn, worldX, worldZ, scale, trackingPosition, unlimitedTracking);
     }
 
     @Override
     public boolean isEmptyMap(ItemStack itemstack1)
     {
         return (itemstack1.getItem() == Items.MAP) ||
-                (itemstack1.getItem() instanceof ItemEmptyMegaMap);
+                (itemstack1.getItem() instanceof MegaMapItem);
     }
 
     @Override
     public boolean isFilledMap(ItemStack itemstack1)
     {
         return (itemstack1.getItem() == Items.FILLED_MAP)
-                || (itemstack1.getItem() instanceof ItemMegaMap);
+                || (itemstack1.getItem() instanceof FilledMegaMapItem);
     }
 
     @Override
     public boolean isMapScaleValid(ItemStack itemstack, byte scale)
     {
         // byte range is -128 to 127
-        if (itemstack.getItem() instanceof ItemMegaMap)
+        if (itemstack.getItem() instanceof FilledMegaMapItem)
         {
-            IItemMegaMap item = (IItemMegaMap) (itemstack.getItem());
+            IFilledMegaMapItem item = (IFilledMegaMapItem) (itemstack.getItem());
             return item.isAMapScaleValid(scale);
         }
         else
@@ -68,23 +66,24 @@ public class MegaMapAPI implements IMegaMapAPI
         Item srcItem = itemstack.getItem();
         if (ModConfig.disableVanillaRecipes)
         {
-            srcItem = ObjectHolder.filled_megamap_item;
+            srcItem = ModObjectHolder.filled_megamap_item;
         }
-        ItemStack itemstack2 = new ItemStack(srcItem, i + 1, itemstack.getMetadata());
+        ItemStack itemstack2 = new ItemStack(srcItem, i + 1);
 
         if (itemstack.hasDisplayName())
         {
-            itemstack2.setStackDisplayName(itemstack.getDisplayName());
+            itemstack2.setDisplayName(itemstack.getDisplayName());
         }
 
-        if (itemstack.hasTagCompound())
+        if (itemstack.hasTag())
         {
-            itemstack2.setTagCompound(itemstack.getTagCompound());
+            itemstack2.setTag(itemstack.getTag());
         }
 
         return itemstack2;
     }
 
+    /*
     @Override
     public boolean isExplorationMap(MapData mapData)
     {
@@ -101,25 +100,26 @@ public class MegaMapAPI implements IMegaMapAPI
 
         return false;
     }
-    
+ 
     @Override
     public boolean isExplorationMap(ItemStack itemstack, World worldIn)
     {
-        ItemMap item = Util.as(itemstack.getItem(), ItemMap.class);
+        MapItem item = Util.as(itemstack.getItem(), MapItem.class);
         MapData mapdata = (item != null) ? item.getMapData(itemstack, worldIn) : null;
         
         return isExplorationMap(mapdata);
     }
+    */
     
     @Override
     public Item getFilledMegaMapItem()
     {
-        return ObjectHolder.filled_megamap_item;
+        return ModObjectHolder.filled_megamap_item;
     }
     
     @Override
     public Item getEmptyMegaMapItem()
     {
-        return ObjectHolder.empty_megamap_item;
+        return ModObjectHolder.empty_megamap_item;
     }
 }

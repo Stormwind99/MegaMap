@@ -1,16 +1,8 @@
 package com.wumple.megamap;
 
-import com.wumple.util.proxy.CombinedClientProxy;
+public class ClientProxy { }
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-
+/*
 public class ClientProxy extends CombinedClientProxy
 {
 
@@ -35,3 +27,4 @@ public class ClientProxy extends CombinedClientProxy
     }
 
 }
+*/

@@ -1,6 +1,6 @@
 package com.wumple.megamap.api;
 
-public interface IItemEmptyMegaMap
+public interface IMegaMapItem
 {
     public String getID();
 }

@@ -10,16 +10,13 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:paper",
-      "data": 32767
+      "item": "minecraft:paper"
     },
     "X": {
-      "item": "minecraft:compass",
-      "data": 32767
+      "item": "minecraft:compass"
     }
   },
   "result": {
-    "item": "megamap:megamap_empty",
-    "data": 0
+    "item": "megamap:megamap_empty"
   }
 }

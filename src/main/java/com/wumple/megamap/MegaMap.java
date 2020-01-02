@@ -3,21 +3,79 @@ package com.wumple.megamap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.wumple.util.mod.ModBase;
-import com.wumple.util.proxy.ISidedProxy;
+import com.wumple.megamap.commands.ModCommands;
+import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.megamap.MegaMapItem;
+import com.wumple.megamap.recipes.MegaMapCloningRecipe;
+import com.wumple.megamap.recipes.MegaMapExtendingRecipe;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES, updateJSON = Reference.UPDATEJSON, certificateFingerprint=Reference.FINGERPRINT)
-public class MegaMap extends ModBase
+@Mod(Reference.MOD_ID)
+public class MegaMap /*extends ModBase*/
 {
+	// Directly reference a log4j logger.
+	public static final Logger LOGGER = LogManager.getLogger();
+
+    public MegaMap()
+    { 
+    	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    	modEventBus.addGenericListener(IRecipeSerializer.class, this::registerRecipeSerializers);
+    	
+        // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
+    public void onFingerprintViolation(final FMLFingerprintViolationEvent event)
+    {
+        LOGGER.warn("Invalid fingerprint detected! The file " + event.getSource().getName()
+                        + " may have been tampered with. This version will NOT be supported by the author!");
+        LOGGER.warn("Expected " + event.getExpectedFingerprint() + " found " + event.getFingerprints().toString());
+    }
+
+    @SubscribeEvent
+    public void serverLoad(FMLServerStartingEvent event) {
+    	LOGGER.info("HELLO from serverLoad");
+        ModCommands.register(event.getCommandDispatcher());
+    }
+    
+    private void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event)
+    {
+        event.getRegistry().registerAll(
+                new MegaMapExtendingRecipe.Serializer().setRegistryName("megamap_extending"),
+                new SpecialRecipeSerializer<>(MegaMapCloningRecipe::new).setRegistryName("megamap_cloning")
+        );
+    }
+
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
+            LOGGER.info("HELLO from onRegisterItems");
+            
+            Item.Properties properties = new Item.Properties();
+        
+            ModObjectHolder.empty_megamap_item = new MegaMapItem(properties);
+            ModObjectHolder.filled_megamap_item = new FilledMegaMapItem(properties);
+            
+            event.getRegistry().register( ModObjectHolder.empty_megamap_item );
+            event.getRegistry().register( ModObjectHolder.filled_megamap_item );
+        }
+    }
+     
+    
+	/*
     @Mod.Instance(Reference.MOD_ID)
     public static MegaMap instance;
     
@@ -66,4 +124,5 @@ public class MegaMap extends ModBase
     {
         return LogManager.getLogger(Reference.MOD_ID);
     }
+    */
 }

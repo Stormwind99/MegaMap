@@ -1,0 +1,7 @@
+{
+    "recipes": {
+        "megamap_cloning": "com.wumple.megamap.recipes.MegaMapCloningRecipe",
+        "megamap_extending": "com.wumple.megamap.recipes.MegaMapExtendingRecipe"
+    }
+}
+

@@ -1,8 +1,8 @@
 package com.wumple.megamap.api;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public interface IMegaMapData
 {
-    public void readFromNBT(NBTTagCompound nbt);
+    public void read(CompoundNBT nbt);
 }
