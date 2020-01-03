@@ -9,12 +9,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "minecraft:paper"
-    },
-    "X": {
-      "item": "megamap:megamap_filled"
-    }
+    "#": { "item": "minecraft:paper" },
+    "X": { "tag": "megamap:filled_maps" }
   },
   "result": {
     "item": "megamap:megamap_filled"

@@ -9,12 +9,8 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:paper"
-    },
-    "X": {
-      "item": "minecraft:compass"
-    }
+    "#": { "item": "minecraft:paper" },
+    "X": { "item": "minecraft:compass" }
   },
   "result": {
     "item": "megamap:megamap_empty"

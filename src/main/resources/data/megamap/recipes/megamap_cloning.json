@@ -4,15 +4,10 @@
    ],
   "type": "megamap:megamap_cloning",
   "ingredients": [
-      {
-          "item": "megamap:megamap_filled"
-      },
-      {
-          "item": "megamap:megamap_empty"
-      }
+      { "tag": "megamap:empty_maps" },
+      { "tag": "megamap:filled_maps" }
   ],
   "result": {
     "item": "megamap:megamap_filled"
   }
 }
-
