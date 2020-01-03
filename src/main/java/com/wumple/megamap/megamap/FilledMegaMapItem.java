@@ -9,7 +9,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
-import com.wumple.megamap.ModConfig;
+import com.wumple.megamap.ConfigManager;
 import com.wumple.megamap.ModObjectHolder;
 import com.wumple.megamap.api.IFilledMegaMapItem;
 
@@ -127,7 +127,7 @@ public class FilledMegaMapItem extends FilledMapItem implements IFilledMegaMapIt
 	
 	protected static boolean isMapScaleValid(byte scale)
 	{
-		return (scale >= 0) && (scale <= ModConfig.General.maxScale.get());
+		return (scale >= 0) && (scale <= ConfigManager.General.maxScale.get());
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -646,7 +646,7 @@ public class FilledMegaMapItem extends FilledMapItem implements IFilledMegaMapIt
 		if (mapdata != null)
 		{
 			createMapData(stack, world, mapdata.xCenter, mapdata.zCenter,
-					MathHelper.clamp(mapdata.scale + scaleChange, 0, ModConfig.General.maxScale.get()), mapdata.trackingPosition,
+					MathHelper.clamp(mapdata.scale + scaleChange, 0, ConfigManager.General.maxScale.get()), mapdata.trackingPosition,
 					mapdata.unlimitedTracking, mapdata.dimension);
 		}
 
@@ -694,7 +694,7 @@ public class FilledMegaMapItem extends FilledMapItem implements IFilledMegaMapIt
 						.applyTextStyle(TextFormatting.GRAY));
 				tooltip.add((new TranslationTextComponent("filled_map.scale", 1 << mapdata.scale))
 						.applyTextStyle(TextFormatting.GRAY));
-				tooltip.add((new TranslationTextComponent("filled_map.level", mapdata.scale, ModConfig.General.maxScale.get()	))
+				tooltip.add((new TranslationTextComponent("filled_map.level", mapdata.scale, ConfigManager.General.maxScale.get()	))
 						.applyTextStyle(TextFormatting.GRAY));
 			}
 			else

@@ -4,9 +4,9 @@
    ],
   "type": "megamap:megamap_extending",
   "pattern": [
-    " # ",
+    "###",
     "#X#",
-    " # "
+    "###"
   ],
   "key": {
     "#": { "item": "minecraft:paper" },

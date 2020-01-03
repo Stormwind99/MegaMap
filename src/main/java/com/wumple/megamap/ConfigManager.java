@@ -9,6 +9,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 // See
@@ -16,7 +17,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 // https://wiki.mcjty.eu/modding/index.php?title=Tut14_Ep6
 
 @Mod.EventBusSubscriber
-public class ModConfig
+public class ConfigManager
 {
 	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
 	private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
@@ -59,8 +60,7 @@ public class ModConfig
 	public static class Debugging
 	{
 		public static ForgeConfigSpec.BooleanValue debug;
-		public static ForgeConfigSpec.BooleanValue usePlaceholderTileEntity;
-
+		
 		private static void setupConfig()
 		{
 			// @Config.Comment("Debugging options")
@@ -94,21 +94,21 @@ public class ModConfig
 	}
 
 	@SubscribeEvent
-	public static void onLoad(final net.minecraftforge.fml.config.ModConfig.Loading configEvent)
+	public static void onLoad(final ModConfig.Loading configEvent)
 	{
 	}
 
 	@SubscribeEvent
-	public static void onReload(final net.minecraftforge.fml.config.ModConfig.ConfigReloading configEvent)
+	public static void onReload(final ModConfig.ConfigReloading configEvent)
 	{
 	}
 
-	public static void setupConfig()
+	public static void register(final ModLoadingContext context)
 	{
-		ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT, CLIENT_CONFIG);
-		ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, COMMON_CONFIG);
+		context.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
+		context.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
 
-		loadConfig(ModConfig.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Reference.MOD_ID + "-client.toml"));
-		loadConfig(ModConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Reference.MOD_ID + "-common.toml"));
+		loadConfig(ConfigManager.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Reference.MOD_ID + "-client.toml"));
+		loadConfig(ConfigManager.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Reference.MOD_ID + "-common.toml"));
 	}
 }

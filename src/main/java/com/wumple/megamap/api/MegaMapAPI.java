@@ -1,6 +1,6 @@
 package com.wumple.megamap.api;
 
-import com.wumple.megamap.ModConfig;
+import com.wumple.megamap.ConfigManager;
 import com.wumple.megamap.ModObjectHolder;
 import com.wumple.megamap.megamap.FilledMegaMapItem;
 import com.wumple.megamap.util.Util;
@@ -69,18 +69,18 @@ public class MegaMapAPI implements IMegaMapAPI
 		Item srcItem = itemstack.getItem();
 		ItemStack itemstack2;
 
-		if (ModConfig.General.disableVanillaRecipes.get())
+		if (ConfigManager.General.disableVanillaRecipes.get() == true)
 		{
 			srcItem = ModObjectHolder.filled_megamap_item;
 			// from ItemStack.copy
-			itemstack2 = new ItemStack(srcItem, i + 1);
+			itemstack2 = new ItemStack(srcItem, i);
 			itemstack2.setAnimationsToGo(itemstack.getAnimationsToGo());
 			if (itemstack.hasTag()) itemstack2.setTag(itemstack.getTag());
 		}
 		else
 		{
 			itemstack2 = itemstack.copy();
-			itemstack2.setCount(i + 1);
+			itemstack2.setCount(i);
 		}
 
 		return itemstack2;

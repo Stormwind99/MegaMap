@@ -1,6 +1,6 @@
 package com.wumple.megamap.megamap;
 
-import com.wumple.megamap.ModConfig;
+import com.wumple.megamap.ConfigManager;
 import com.wumple.megamap.api.IMegaMapItem;
 import com.wumple.megamap.api.MegaMapAPI;
 
@@ -38,7 +38,7 @@ public class MegaMapItem extends MapItem implements IMegaMapItem
 	 */
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
-		int scale = ModConfig.General.defaultScale.get();
+		int scale = ConfigManager.General.defaultScale.get();
 		ItemStack itemstack = MegaMapAPI.getInstance().setupNewMap(worldIn, MathHelper.floor(playerIn.posX),
 				MathHelper.floor(playerIn.posZ), (byte)scale, true, false);
 		ItemStack itemstack1 = playerIn.getHeldItem(handIn);

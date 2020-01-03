@@ -8,31 +8,39 @@ import com.wumple.megamap.megamap.FilledMegaMapItem;
 import com.wumple.megamap.megamap.MegaMapItem;
 import com.wumple.megamap.recipes.MegaMapCloningRecipe;
 import com.wumple.megamap.recipes.MegaMapExtendingRecipe;
+import com.wumple.megamap.util.RecipeRemover;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.MapCloningRecipe;
+import net.minecraft.item.crafting.MapExtendingRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Reference.MOD_ID)
-public class MegaMap /*extends ModBase*/
+public class MegaMap	 /* extends ModBase */
 {
 	public Logger getLogger()
 	{
-	    return LogManager.getLogger(Reference.MOD_ID);
+		return LogManager.getLogger(Reference.MOD_ID);
 	}
 
 	public MegaMap()
 	{
-        ModConfig.setupConfig();
-        
+		ConfigManager.register(ModLoadingContext.get());
+
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addGenericListener(IRecipeSerializer.class, this::registerRecipeSerializers);
 
@@ -52,6 +60,19 @@ public class MegaMap /*extends ModBase*/
 	public void serverLoad(FMLServerStartingEvent event)
 	{
 		ModCommands.register(event.getCommandDispatcher());
+	}
+
+	@SubscribeEvent
+	public void onServerStarted(FMLServerStartedEvent event)
+	{
+		if (ConfigManager.General.disableVanillaRecipes.get() == true)
+		{
+			final RecipeManager recipeManager = event.getServer().getRecipeManager();
+			RecipeRemover.removeRecipes(recipeManager, MapCloningRecipe.class);
+			RecipeRemover.removeRecipes(recipeManager, MapExtendingRecipe.class);
+			RecipeRemover.removeRecipes(recipeManager, new ResourceLocation("minecraft", "map"));
+			RecipeRemover.removeRecipes(recipeManager, new ResourceLocation("minecraft", "filled_map"));
+		}
 	}
 
 	public static SpecialRecipeSerializer<MegaMapCloningRecipe> CRAFTING_SPECIAL_MAPCLONING;

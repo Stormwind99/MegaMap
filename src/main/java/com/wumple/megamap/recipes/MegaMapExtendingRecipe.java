@@ -84,8 +84,7 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 		
 		if (itemstack != ItemStack.EMPTY)
 		{
-			newItemstack = itemstack.copy();
-			newItemstack.setCount(1);
+			newItemstack = MegaMapAPI.getInstance().copyMap(itemstack, 1);
 			newItemstack.getOrCreateTag().putInt("map_scale_direction", 1);
 		}
 		

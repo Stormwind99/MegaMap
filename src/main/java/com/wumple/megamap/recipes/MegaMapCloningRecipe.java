@@ -84,7 +84,7 @@ public class MegaMapCloningRecipe extends SpecialRecipe
 
 		if (!itemstack.isEmpty() && i >= 1)
 		{
-			return MegaMapAPI.getInstance().copyMap(itemstack, i);
+			return MegaMapAPI.getInstance().copyMap(itemstack, i+1);
 		}
 		else
 		{
