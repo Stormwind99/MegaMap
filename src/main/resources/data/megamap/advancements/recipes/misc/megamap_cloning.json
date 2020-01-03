@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "megamap:megamap_cloning"
+    ]
+  },
+  "criteria": {
+    "has_filled_map": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "megamap:filled_maps"
+          }
+        ]
+      }
+    },
+    "has_empty_map": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "megamap:empty_maps"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "megamap:megamap_cloning"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_filled_map",
+      "has_empty_map",
+      "has_the_recipe"
+    ]
+  ]
+}

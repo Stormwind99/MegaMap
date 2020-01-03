@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "megamap:megamap_empty"
+    ]
+  },
+  "criteria": {
+    "has_compass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "megamap:compasses"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "megamap:megamap_empty"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_compass",
+      "has_the_recipe"
+    ]
+  ]
+}

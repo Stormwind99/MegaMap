@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "megamap:megamap_extending"
+    ]
+  },
+  "criteria": {
+    "has_filled_map": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "megamap:filled_maps"
+          }
+        ]
+      }
+    },
+    "has_paper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "megamap:papers"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "megamap:megamap_extending"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_filled_map",
+      "has_paper",
+      "has_the_recipe"
+    ]
+  ]
+}
