@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "megamap:papers"
+            "tag": "forge:papers"
           }
         ]
       }

@@ -9,8 +9,8 @@
     "###"
   ],
   "key": {
-    "#": { "tag": "megamap:papers" },
-    "X": { "tag": "megamap:compasses" }
+    "#": { "tag": "forge:papers" },
+    "X": { "tag": "forge:compasses" }
   },
   "result": {
     "item": "megamap:megamap_empty"

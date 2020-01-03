@@ -9,7 +9,7 @@
     "###"
   ],
   "key": {
-    "#": { "tag": "megamap:papers" },
+    "#": { "tag": "forge:papers" },
     "X": { "tag": "megamap:filled_maps" }
   },
   "result": {
