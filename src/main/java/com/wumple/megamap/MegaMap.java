@@ -16,7 +16,6 @@ import net.minecraft.item.crafting.MapCloningRecipe;
 import net.minecraft.item.crafting.MapExtendingRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;

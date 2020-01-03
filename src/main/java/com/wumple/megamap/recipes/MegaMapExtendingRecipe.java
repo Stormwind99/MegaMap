@@ -104,7 +104,6 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 	@Override
 	public IRecipeSerializer<?> getSerializer()
 	{
-		//return new ShapedRecipe.Serializer<>(MegaMapExtendingRecipe::new);
 		return MegaMap.CRAFTING_SPECIAL_MAPEXTENDING;
 	}
 }

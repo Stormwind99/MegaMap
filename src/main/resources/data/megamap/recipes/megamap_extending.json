@@ -9,7 +9,7 @@
     "###"
   ],
   "key": {
-    "#": { "item": "minecraft:paper" },
+    "#": { "tag": "megamap:papers" },
     "X": { "tag": "megamap:filled_maps" }
   },
   "result": {
