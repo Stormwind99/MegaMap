@@ -1,13 +1,12 @@
 package com.wumple.megamap.recipes;
 
+import com.wumple.megamap.MegaMap;
 import com.wumple.megamap.api.MegaMapAPI;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.MapCloningRecipe;
 import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -103,7 +102,7 @@ public class MegaMapCloningRecipe extends SpecialRecipe
 
 	public IRecipeSerializer<?> getSerializer()
 	{
-		//return IRecipeSerializer.CRAFTING_SPECIAL_MAPCLONING;
-		return new SpecialRecipeSerializer<>(MapCloningRecipe::new);
+		//return new SpecialRecipeSerializer<>(MapCloningRecipe::new);
+		return MegaMap.CRAFTING_SPECIAL_MAPCLONING;
 	}
 }

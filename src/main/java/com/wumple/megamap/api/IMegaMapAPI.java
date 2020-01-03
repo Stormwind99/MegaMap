@@ -3,6 +3,7 @@ package com.wumple.megamap.api;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.MapData;
 
 public interface IMegaMapAPI
 {
@@ -17,14 +18,13 @@ public interface IMegaMapAPI
 
     ItemStack copyMap(ItemStack itemstack, int i);
 
-    /*
     boolean isExplorationMap(MapData mapData);
 
     boolean isExplorationMap(ItemStack itemstack, World worldIn);
-    */
 
     Item getFilledMegaMapItem();
 
     Item getEmptyMegaMapItem();
-
+    
+    MapData getMapData(ItemStack itemstack, World worldIn);
 }

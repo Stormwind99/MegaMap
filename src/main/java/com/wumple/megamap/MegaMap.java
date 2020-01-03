@@ -24,105 +24,62 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Reference.MOD_ID)
 public class MegaMap /*extends ModBase*/
 {
-	// Directly reference a log4j logger.
-	public static final Logger LOGGER = LogManager.getLogger();
+	public Logger getLogger()
+	{
+	    return LogManager.getLogger(Reference.MOD_ID);
+	}
 
-    public MegaMap()
-    { 
-    	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    	modEventBus.addGenericListener(IRecipeSerializer.class, this::registerRecipeSerializers);
-    	
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @SubscribeEvent
-    public void onFingerprintViolation(final FMLFingerprintViolationEvent event)
-    {
-        LOGGER.warn("Invalid fingerprint detected! The file " + event.getSource().getName()
-                        + " may have been tampered with. This version will NOT be supported by the author!");
-        LOGGER.warn("Expected " + event.getExpectedFingerprint() + " found " + event.getFingerprints().toString());
-    }
-
-    @SubscribeEvent
-    public void serverLoad(FMLServerStartingEvent event) {
-    	LOGGER.info("HELLO from serverLoad");
-        ModCommands.register(event.getCommandDispatcher());
-    }
-    
-    private void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event)
-    {
-        event.getRegistry().registerAll(
-                new MegaMapExtendingRecipe.Serializer().setRegistryName("megamap_extending"),
-                new SpecialRecipeSerializer<>(MegaMapCloningRecipe::new).setRegistryName("megamap_cloning")
-        );
-    }
-
-    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
-            LOGGER.info("HELLO from onRegisterItems");
-            
-            Item.Properties properties = new Item.Properties();
+	public MegaMap()
+	{
+        ModConfig.setupConfig();
         
-            ModObjectHolder.empty_megamap_item = new MegaMapItem(properties);
-            ModObjectHolder.filled_megamap_item = new FilledMegaMapItem(properties);
-            
-            event.getRegistry().register( ModObjectHolder.empty_megamap_item );
-            event.getRegistry().register( ModObjectHolder.filled_megamap_item );
-        }
-    }
-     
-    
-	/*
-    @Mod.Instance(Reference.MOD_ID)
-    public static MegaMap instance;
-    
-    @SidedProxy(
-            clientSide="com.wumple.megamap.ClientProxy", 
-            serverSide="com.wumple.megamap.ServerProxy"
-          )
-    public static ISidedProxy proxy;
+		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modEventBus.addGenericListener(IRecipeSerializer.class, this::registerRecipeSerializers);
 
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        super.preInit(event);
-        proxy.preInit(event);
-    }
+		// Register ourselves for server and other game events we are interested in
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
-    @EventHandler
-    public void init(FMLInitializationEvent event) 
-    {
-    	super.init(event);
-    	proxy.init(event);
-    }
+	@SubscribeEvent
+	public void onFingerprintViolation(final FMLFingerprintViolationEvent event)
+	{
+		getLogger().warn("Invalid fingerprint detected! The file " + event.getSource().getName()
+				+ " may have been tampered with. This version will NOT be supported by the author!");
+		getLogger().warn("Expected " + event.getExpectedFingerprint() + " found " + event.getFingerprints().toString());
+	}
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-    	super.postInit(event);
-    	proxy.postInit(event);
-    }
-    
-    @EventHandler
-    public void serverLoad(FMLServerStartingEvent event)
-    {
-        event.registerServerCommand(new FillMegaMapCommand());
-    }
+	@SubscribeEvent
+	public void serverLoad(FMLServerStartingEvent event)
+	{
+		ModCommands.register(event.getCommandDispatcher());
+	}
 
-    @EventHandler
-    @Override
-    public void onFingerprintViolation(FMLFingerprintViolationEvent event)
-    {
-        super.onFingerprintViolation(event);
-    }
-    
-    @Override
-    public Logger getLoggerFromManager()
-    {
-        return LogManager.getLogger(Reference.MOD_ID);
-    }
-    */
+	public static SpecialRecipeSerializer<MegaMapCloningRecipe> CRAFTING_SPECIAL_MAPCLONING;
+	public static MegaMapExtendingRecipe.Serializer<MegaMapExtendingRecipe> CRAFTING_SPECIAL_MAPEXTENDING;
+
+	private void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event)
+	{
+		CRAFTING_SPECIAL_MAPCLONING = new SpecialRecipeSerializer<>(MegaMapCloningRecipe::new);
+		CRAFTING_SPECIAL_MAPCLONING.setRegistryName("megamap_cloning");
+		CRAFTING_SPECIAL_MAPEXTENDING = new MegaMapExtendingRecipe.Serializer<MegaMapExtendingRecipe>(
+				MegaMapExtendingRecipe::new);
+		CRAFTING_SPECIAL_MAPEXTENDING.setRegistryName("megamap_extending");
+		event.getRegistry().registerAll(CRAFTING_SPECIAL_MAPCLONING, CRAFTING_SPECIAL_MAPEXTENDING);
+	}
+
+	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+	public static class RegistryEvents
+	{
+		@SubscribeEvent
+		public static void onRegisterItems(final RegistryEvent.Register<Item> event)
+		{
+			Item.Properties properties = new Item.Properties();
+
+			ModObjectHolder.empty_megamap_item = new MegaMapItem(properties);
+			ModObjectHolder.filled_megamap_item = new FilledMegaMapItem(properties);
+
+			event.getRegistry().register(ModObjectHolder.empty_megamap_item);
+			event.getRegistry().register(ModObjectHolder.filled_megamap_item);
+		}
+	}
 }

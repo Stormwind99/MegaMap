@@ -2,6 +2,7 @@ package com.wumple.megamap.megamap;
 
 import com.wumple.megamap.ModConfig;
 import com.wumple.megamap.api.IMegaMapItem;
+import com.wumple.megamap.api.MegaMapAPI;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -21,7 +22,7 @@ public class MegaMapItem extends MapItem implements IMegaMapItem
 	public MegaMapItem(Item.Properties builder)
 	{
 		super(builder.maxStackSize(64));
-		
+
 		setRegistryName(ID);
 	}
 
@@ -37,9 +38,9 @@ public class MegaMapItem extends MapItem implements IMegaMapItem
 	 */
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
-		byte scale = ModConfig.defaultScale;
-		// ItemStack itemstack = FilledMapItem.setupNewMap(worldIn, MathHelper.floor(playerIn.posX), MathHelper.floor(playerIn.posZ), (byte)0, true, false);
-		ItemStack itemstack = FilledMegaMapItem.setupNewMap(worldIn, MathHelper.floor(playerIn.posX), MathHelper.floor(playerIn.posZ), scale, true, false);
+		int scale = ModConfig.General.defaultScale.get();
+		ItemStack itemstack = MegaMapAPI.getInstance().setupNewMap(worldIn, MathHelper.floor(playerIn.posX),
+				MathHelper.floor(playerIn.posZ), (byte)scale, true, false);
 		ItemStack itemstack1 = playerIn.getHeldItem(handIn);
 		if (!playerIn.abilities.isCreativeMode)
 		{
@@ -49,7 +50,7 @@ public class MegaMapItem extends MapItem implements IMegaMapItem
 		if (itemstack1.isEmpty())
 		{
 			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
-		} 
+		}
 		else
 		{
 			if (!playerIn.inventory.addItemStackToInventory(itemstack.copy()))

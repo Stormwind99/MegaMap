@@ -1,19 +1,17 @@
 package com.wumple.megamap.recipes;
 
-import com.wumple.megamap.Util;
+import com.wumple.megamap.MegaMap;
 import com.wumple.megamap.api.MegaMapAPI;
-import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.util.ShapedRecipe;
 
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
-import net.minecraft.world.storage.MapDecoration;
 
 public class MegaMapExtendingRecipe extends ShapedRecipe
 {
@@ -23,11 +21,7 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 		super(idIn, groupIn, recipeWidthIn, recipeHeightIn, recipeItemsIn, recipeOutputIn);
 	}
 
-	/*
-	  public MegaMapExtendingRecipe(ResourceLocation idIn) {
-	      super(idIn, "", 3, 3, NonNullList.from(Ingredient.EMPTY, Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.FILLED_MAP), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER)), new ItemStack(Items.MAP));
-	*/
-
+	@Override
 	public boolean matches(CraftingInventory inv, World worldIn)
 	{
 		if (!super.matches(inv, worldIn))
@@ -53,55 +47,26 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 			}
 			else
 			{
-				MapData mapdata = null;
-				
-				// use MegaMapItem if possible to get MegaMapData instead of just MapData
-				if (itemstack.getItem() instanceof FilledMegaMapItem)
-				{
-					FilledMegaMapItem item = Util.as(itemstack.getItem(), FilledMegaMapItem.class);
-					mapdata = item.getMyMapData(itemstack, worldIn);
-				}
-				// otherwise if normal map, fallback
-				else
-				{
-					mapdata = FilledMapItem.getMapData(itemstack, worldIn);
-				}
-				
+				MapData mapdata = MegaMapAPI.getInstance().getMapData(itemstack, worldIn);
+
 				if (mapdata == null)
 				{
 					return false;
 				}
-				// TODO else if (MegaMapAPI.getInstance().isExplorationMap(mapdata))
-				else if (this.isExplorationMap(mapdata))
+				else if (MegaMapAPI.getInstance().isExplorationMap(mapdata))
 				{
 					return false;
 				}
 				else
 				{
-                   byte testScale = (byte) (mapdata.scale + 1);
-                   return MegaMapAPI.getInstance().isMapScaleValid(itemstack, testScale);
+					byte testScale = (byte) (mapdata.scale + 1);
+					return MegaMapAPI.getInstance().isMapScaleValid(itemstack, testScale);
 				}
 			}
 		}
 	}
 
-	private boolean isExplorationMap(MapData mapData)
-	{
-		if (mapData.mapDecorations != null)
-		{
-			for (MapDecoration mapdecoration : mapData.mapDecorations.values())
-			{
-				if (mapdecoration.getType() == MapDecoration.Type.MANSION
-						|| mapdecoration.getType() == MapDecoration.Type.MONUMENT)
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
+	@Override
 	public ItemStack getCraftingResult(CraftingInventory inv)
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
@@ -115,18 +80,32 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 			}
 		}
 
-		ItemStack newItemstack = itemstack.copy();
-		newItemstack.setCount(1);
-		newItemstack.getOrCreateTag().putInt("map_scale_direction", 1);
-		return itemstack;
+		ItemStack newItemstack = ItemStack.EMPTY;
+		
+		if (itemstack != ItemStack.EMPTY)
+		{
+			newItemstack = itemstack.copy();
+			newItemstack.setCount(1);
+			newItemstack.getOrCreateTag().putInt("map_scale_direction", 1);
+		}
+		
+		return newItemstack;
 	}
 
 	/**
 	 * If true, this recipe does not appear in the recipe book and does not respect
 	 * recipe unlocking (and the doLimitedCrafting gamerule)
 	 */
+	@Override
 	public boolean isDynamic()
 	{
 		return true;
+	}
+
+	@Override
+	public IRecipeSerializer<?> getSerializer()
+	{
+		//return new ShapedRecipe.Serializer<>(MegaMapExtendingRecipe::new);
+		return MegaMap.CRAFTING_SPECIAL_MAPEXTENDING;
 	}
 }

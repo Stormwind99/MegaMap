@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#megamap:empty_maps",
+    "#megamap:filled_maps"
+  ]
+}

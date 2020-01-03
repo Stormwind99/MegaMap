@@ -1,4 +1,4 @@
-package com.wumple.megamap;
+package com.wumple.megamap.util;
 
 public class Util
 {

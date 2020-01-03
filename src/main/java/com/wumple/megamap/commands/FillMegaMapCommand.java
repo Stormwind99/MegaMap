@@ -5,7 +5,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.api.IFilledMegaMapItem;
+import com.wumple.megamap.util.Util;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -14,8 +15,12 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.MapData;
 
+/*
+ * fillmegamap debugging command
+ * 
+ * Warning: can be VERY slow on a map of scale >=5 and non-generated chunks!
+ */
 public class FillMegaMapCommand implements Command<CommandSource>
 {
 	private static final FillMegaMapCommand CMD = new FillMegaMapCommand();
@@ -25,11 +30,6 @@ public class FillMegaMapCommand implements Command<CommandSource>
         return Commands.literal("fillmegamap")
                 //.requires(cs -> cs.hasPermissionLevel(0))
                 .executes(CMD);
-    }
-    
-    public static <T> T Util_as(Object o, Class<T> t)
-    {
-        return t.isInstance(o) ? t.cast(o) : null;
     }
     
     @Override
@@ -42,32 +42,29 @@ public class FillMegaMapCommand implements Command<CommandSource>
         ServerPlayerEntity player = source.asPlayer();
         
         ItemStack mapStack = null;
-        FilledMegaMapItem mapItem = null;
+        IFilledMegaMapItem mapItem = null;
         
         // get a held map
         if (player != null)
         {
             mapStack = player.getHeldItemMainhand();
-            mapItem = (mapStack != null) ? Util_as(mapStack.getItem(), FilledMegaMapItem.class) : null;
+            mapItem = (mapStack != null) ? Util.as(mapStack.getItem(), IFilledMegaMapItem.class) : null;
             
             if (mapItem == null)
             {
                 mapStack = player.getHeldItemOffhand();
-                mapItem = (mapStack != null) ? Util_as(mapStack.getItem(), FilledMegaMapItem.class) : null;
+                mapItem = (mapStack != null) ? Util.as(mapStack.getItem(), IFilledMegaMapItem.class) : null;
             }
         }
         
-        // get the map data
-        MapData mapData = (mapStack != null) ? FilledMegaMapItem.getMapData(mapStack, world) : null;
+        context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filling"), true);
+        boolean ret = mapItem.fillMapData(world, entity, mapStack);
         
-        if (mapData == null) 
-        {
+        if (ret)
+        	context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filledmap"), true);
+        else
         	context.getSource().sendErrorMessage(new TranslationTextComponent("command.megamap.fillmegamap.nomap"));
-            return 0; 
-        } 
 
-        mapItem.fillMapData(world, entity, mapData);
-        context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filledmap"), true);
         
         return 0;
     }
