@@ -1,0 +1,8 @@
+{
+    "item.megamap.megamap_filled": "Mega Map",
+    "item.megamap.megamap_empty": "Empty Mega Map",
+
+    "command.megamap.fillmegamap.filling": "Filling map...",
+    "command.megamap.fillmegamap.nomap": "No map found in hand",
+    "command.megamap.fillmegamap.filledmap": "Map filled"
+}
