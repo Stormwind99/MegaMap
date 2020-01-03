@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "megamap:filled_maps"
+            "tag": "forge:filled_maps"
           }
         ]
       }
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "megamap:empty_maps"
+            "tag": "forge:empty_maps"
           }
         ]
       }

@@ -10,7 +10,7 @@
   ],
   "key": {
     "#": { "tag": "forge:papers" },
-    "X": { "tag": "megamap:filled_maps" }
+    "X": { "tag": "forge:filled_maps" }
   },
   "result": {
     "item": "megamap:megamap_filled"

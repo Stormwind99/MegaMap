@@ -37,13 +37,13 @@ public class MegaMapAPI implements IMegaMapAPI
 	@Override
 	public boolean isEmptyMap(ItemStack itemstack1)
 	{
-		return ItemTags.getCollection().getOrCreate(new ResourceLocation("megamap", "empty_maps")).contains(itemstack1.getItem());
+		return ItemTags.getCollection().getOrCreate(new ResourceLocation("forge", "empty_maps")).contains(itemstack1.getItem());
 	}
 
 	@Override
 	public boolean isFilledMap(ItemStack itemstack1)
 	{
-		return ItemTags.getCollection().getOrCreate(new ResourceLocation("megamap", "filled_maps")).contains(itemstack1.getItem());
+		return ItemTags.getCollection().getOrCreate(new ResourceLocation("forge", "filled_maps")).contains(itemstack1.getItem());
 	}
 
 	@Override

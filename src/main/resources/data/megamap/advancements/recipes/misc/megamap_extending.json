@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "megamap:filled_maps"
+            "tag": "forge:filled_maps"
           }
         ]
       }

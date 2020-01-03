@@ -4,8 +4,8 @@
    ],
   "type": "megamap:megamap_cloning",
   "ingredients": [
-      { "tag": "megamap:empty_maps" },
-      { "tag": "megamap:filled_maps" }
+      { "tag": "forge:empty_maps" },
+      { "tag": "forge:filled_maps" }
   ],
   "result": {
     "item": "megamap:megamap_filled"
