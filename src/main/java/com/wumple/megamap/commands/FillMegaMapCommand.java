@@ -1,5 +1,7 @@
 package com.wumple.megamap.commands;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
@@ -42,25 +44,12 @@ public class FillMegaMapCommand implements Command<CommandSource>
     	Entity entity = source.getEntity();
         ServerPlayerEntity player = source.asPlayer();
         
-        ItemStack mapStack = null;
-        IFilledMegaMapItem mapItem = null;
-        
         // should work but doesn't
-        // mapItem = EquipmentUtil.findHeldItemOf(player, IFilledMegaMapItem.class);
+        Pair<ItemStack, IFilledMegaMapItem> pair = EquipmentUtil.findHeldItemOf(player, IFilledMegaMapItem.class);
         
-        // get a held map
-        if (player != null)
-        {
-            mapStack = player.getHeldItemMainhand();
-            mapItem = (mapStack != null) ? Util.as(mapStack.getItem(), IFilledMegaMapItem.class) : null;
-            
-            if (mapItem == null)
-            {
-                mapStack = player.getHeldItemOffhand();
-                mapItem = (mapStack != null) ? Util.as(mapStack.getItem(), IFilledMegaMapItem.class) : null;
-            }
-        }
-        
+        ItemStack mapStack = pair.getLeft();
+        IFilledMegaMapItem mapItem = pair.getRight();
+                
         if (mapItem != null)
         {
         	context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filling"), true);

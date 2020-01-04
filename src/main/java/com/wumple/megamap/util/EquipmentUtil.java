@@ -1,13 +1,16 @@
 package com.wumple.megamap.util;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public class EquipmentUtil
 {
-	public static <T> T findHeldItemOf(LivingEntity entity, Class<T> t)
+	public static <T> Pair<ItemStack, T> findHeldItemOf(LivingEntity entity, Class<T> t)
 	{
-		ItemStack stack;
+		ItemStack stack = null;
 		T item = null;
 		
         // get a held map
@@ -22,7 +25,9 @@ public class EquipmentUtil
                 item = (stack != null) ? Util.as(stack.getItem(), t) : null;
             }
         }
+        
+        Pair<ItemStack, T> pair = ImmutablePair.of(stack, item);
 
-        return item;
+        return pair;
 	}
 }

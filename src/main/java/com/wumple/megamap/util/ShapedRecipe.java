@@ -390,10 +390,10 @@ public class ShapedRecipe
 			net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T>
 	{
 		// builder that instantiates a new T extends ShapedRecipe 
-		private FunctionSix<ResourceLocation, String, Integer, Integer, NonNullList<Ingredient>, ItemStack, T> function;
+		private SixFunction<ResourceLocation, String, Integer, Integer, NonNullList<Ingredient>, ItemStack, T> function;
 
 		public Serializer(
-				FunctionSix<ResourceLocation, String, Integer, Integer, NonNullList<Ingredient>, ItemStack, T> functionIn)
+				SixFunction<ResourceLocation, String, Integer, Integer, NonNullList<Ingredient>, ItemStack, T> functionIn)
 		{
 			this.function = functionIn;
 		}
