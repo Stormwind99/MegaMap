@@ -1,24 +1,24 @@
 package com.wumple.megamap.util;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public class EquipmentUtil
 {
-	public static <T> T findHeldItem(ServerPlayerEntity player, Class<T> t)
+	public static <T> T findHeldItemOf(LivingEntity entity, Class<T> t)
 	{
 		ItemStack stack;
 		T item = null;
 		
         // get a held map
-        if (player != null)
+        if (entity != null)
         {
-            stack = player.getHeldItemMainhand();
+            stack = entity.getHeldItemMainhand();
             item = (stack != null) ? Util.as(stack.getItem(), t) : null;
             
             if (item == null)
             {
-            	stack = player.getHeldItemOffhand();
+            	stack = entity.getHeldItemOffhand();
                 item = (stack != null) ? Util.as(stack.getItem(), t) : null;
             }
         }

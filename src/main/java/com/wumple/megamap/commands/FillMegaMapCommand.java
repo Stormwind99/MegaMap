@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.wumple.megamap.api.IFilledMegaMapItem;
+import com.wumple.megamap.util.EquipmentUtil;
 import com.wumple.megamap.util.Util;
 
 import net.minecraft.command.CommandSource;
@@ -43,6 +44,9 @@ public class FillMegaMapCommand implements Command<CommandSource>
         
         ItemStack mapStack = null;
         IFilledMegaMapItem mapItem = null;
+        
+        // should work but doesn't
+        // mapItem = EquipmentUtil.findHeldItemOf(player, IFilledMegaMapItem.class);
         
         // get a held map
         if (player != null)
