@@ -1,13 +1,15 @@
 {
   "homepage": "https://github.com/Stormwind99/MegaMap",
   "promos": {
-    "1.12.4-latest": "1.2.0",
-    "1.12.4-recommended": "1.2.0",
+    "1.12.4-latest": "1.2.2",
+    "1.12.4-recommended": "1.2.2",
     "1.12.2-latest": "1.1.0",
     "1.12.2-recommended": "1.1.0"
   },
   "1.14.4": {
-    "1.2.0": "Ported"
+    "1.2.2": "Compatibility crash fix",
+    "1.2.1": "Compatibility fixes for Palimpsest",
+    "1.2.0": "Ported to 1.14.4"
   },
   "1.12.2": {
     "1.1.0": "Updated to Forge 2772",

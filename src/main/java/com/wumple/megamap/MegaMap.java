@@ -42,6 +42,7 @@ public class MegaMap	 /* extends ModBase */
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addGenericListener(IRecipeSerializer.class, this::registerRecipeSerializers);
+		modEventBus.addGenericListener(Item.class, this::registerItems);
 
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(this);
@@ -87,19 +88,16 @@ public class MegaMap	 /* extends ModBase */
 		event.getRegistry().registerAll(CRAFTING_SPECIAL_MAPCLONING, CRAFTING_SPECIAL_MAPEXTENDING);
 	}
 
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class RegistryEvents
+
+	@SubscribeEvent
+	public void registerItems(RegistryEvent.Register<Item> event)
 	{
-		@SubscribeEvent
-		public static void onRegisterItems(final RegistryEvent.Register<Item> event)
-		{
-			Item.Properties properties = new Item.Properties();
+		Item.Properties properties = new Item.Properties();
 
-			ModObjectHolder.empty_megamap_item = new MegaMapItem(properties);
-			ModObjectHolder.filled_megamap_item = new FilledMegaMapItem(properties);
+		ModObjectHolder.empty_megamap_item = new MegaMapItem(properties);
+		ModObjectHolder.filled_megamap_item = new FilledMegaMapItem(properties);
 
-			event.getRegistry().register(ModObjectHolder.empty_megamap_item);
-			event.getRegistry().register(ModObjectHolder.filled_megamap_item);
-		}
+		event.getRegistry().register(ModObjectHolder.empty_megamap_item);
+		event.getRegistry().register(ModObjectHolder.filled_megamap_item);
 	}
 }
