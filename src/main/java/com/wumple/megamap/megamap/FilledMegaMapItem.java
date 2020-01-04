@@ -12,6 +12,7 @@ import com.google.common.collect.Multisets;
 import com.wumple.megamap.ConfigManager;
 import com.wumple.megamap.ModObjectHolder;
 import com.wumple.megamap.api.IFilledMegaMapItem;
+import com.wumple.megamap.util.MapUtil;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -630,13 +631,12 @@ public class FilledMegaMapItem extends FilledMapItem implements IFilledMegaMapIt
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn)
 	{
-		CompoundNBT compoundnbt = stack.getTag();
-		if (compoundnbt != null && compoundnbt.contains("map_scale_direction", 99))
+		int scaling = MapUtil.extractMapScaleDirection(stack);
+		
+		if (scaling != 0)
 		{
-			scaleMap(stack, worldIn, compoundnbt.getInt("map_scale_direction"));
-			compoundnbt.remove("map_scale_direction");
+			scaleMap(stack, worldIn, scaling);
 		}
-
 	}
 
 	// PORTED

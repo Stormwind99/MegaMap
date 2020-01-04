@@ -3,6 +3,7 @@ package com.wumple.megamap.api;
 import com.wumple.megamap.ConfigManager;
 import com.wumple.megamap.ModObjectHolder;
 import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.util.MapUtil;
 import com.wumple.megamap.util.Util;
 
 import net.minecraft.item.FilledMapItem;
@@ -57,7 +58,7 @@ public class MegaMapAPI implements IMegaMapAPI
 		}
 		else
 		{
-			return ((scale >= 0) && (scale <= 4));
+			return MapUtil.isMapScaleValid(scale);
 		}
 	}
 
@@ -89,19 +90,7 @@ public class MegaMapAPI implements IMegaMapAPI
 	@Override
 	public boolean isExplorationMap(MapData mapData)
 	{
-		if ((mapData == null) || (mapData.mapDecorations != null))
-		{
-			for (MapDecoration mapdecoration : mapData.mapDecorations.values())
-			{
-				if (mapdecoration.getType() == MapDecoration.Type.MANSION
-						|| mapdecoration.getType() == MapDecoration.Type.MONUMENT)
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
+		return MapUtil.isExplorationMap(mapData);
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class FillMegaMapCommand implements Command<CommandSource>
     public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher)
     {
         return Commands.literal("fillmegamap")
-                //.requires(cs -> cs.hasPermissionLevel(0))
+                .requires(cs -> cs.hasPermissionLevel(4))
                 .executes(CMD);
     }
     
@@ -57,14 +57,22 @@ public class FillMegaMapCommand implements Command<CommandSource>
             }
         }
         
-        context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filling"), true);
-        boolean ret = mapItem.fillMapData(world, entity, mapStack);
+        if (mapItem != null)
+        {
+        	context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filling"), true);
         
-        if (ret)
-        	context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filledmap"), true);
+        	boolean ret = mapItem.fillMapData(world, entity, mapStack);
+        
+	        if (ret)
+	        	context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.filledmap"), true);
+	        else
+	        	context.getSource().sendErrorMessage(new TranslationTextComponent("command.megamap.fillmegamap.nomap"));
+        }
         else
-        	context.getSource().sendErrorMessage(new TranslationTextComponent("command.megamap.fillmegamap.nomap"));
-
+        {
+        	context.getSource().sendFeedback(new TranslationTextComponent("command.megamap.fillmegamap.nomap"), true);
+        }
+	      
         
         return 0;
     }

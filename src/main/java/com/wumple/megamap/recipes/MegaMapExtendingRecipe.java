@@ -2,6 +2,7 @@ package com.wumple.megamap.recipes;
 
 import com.wumple.megamap.MegaMap;
 import com.wumple.megamap.api.MegaMapAPI;
+import com.wumple.megamap.util.MapUtil;
 import com.wumple.megamap.util.ShapedRecipe;
 
 import net.minecraft.inventory.CraftingInventory;
@@ -85,7 +86,7 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 		if (itemstack != ItemStack.EMPTY)
 		{
 			newItemstack = MegaMapAPI.getInstance().copyMap(itemstack, 1);
-			newItemstack.getOrCreateTag().putInt("map_scale_direction", 1);
+			MapUtil.mapScaleDirection(newItemstack, 1);
 		}
 		
 		return newItemstack;
