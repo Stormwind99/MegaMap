@@ -228,6 +228,7 @@ github {
     repo = config.github_repo
     token = priv.github_token
     name = "${config.version}"
+    targetCommitish = "${config.mc_version}"
     tagName = "${config.version}"
     body = getChangeInfo()
     assets = [ getArchivePath() ]
