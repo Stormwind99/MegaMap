@@ -7,9 +7,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.wumple.megamap.api.IFilledMegaMapItem;
-import com.wumple.megamap.util.EquipmentUtil;
-import com.wumple.megamap.util.Util;
+import com.wumple.util.misc.EquipmentUtil;
+import com.wumple.util.xmap.IXFilledMapItem;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -45,10 +44,10 @@ public class FillMegaMapCommand implements Command<CommandSource>
         ServerPlayerEntity player = source.asPlayer();
         
         // should work but doesn't
-        Pair<ItemStack, IFilledMegaMapItem> pair = EquipmentUtil.findHeldItemOf(player, IFilledMegaMapItem.class);
+        Pair<ItemStack, IXFilledMapItem> pair = EquipmentUtil.findHeldItemOf(player, IXFilledMapItem.class);
         
         ItemStack mapStack = pair.getLeft();
-        IFilledMegaMapItem mapItem = pair.getRight();
+        IXFilledMapItem mapItem = pair.getRight();
                 
         if (mapItem != null)
         {

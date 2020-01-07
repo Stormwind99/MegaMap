@@ -1,7 +1,7 @@
 package com.wumple.megamap.recipes;
 
 import com.wumple.megamap.MegaMap;
-import com.wumple.megamap.api.MegaMapAPI;
+import com.wumple.megamap.megamap.MegaMapAPI;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;

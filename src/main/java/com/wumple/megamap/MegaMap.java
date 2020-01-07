@@ -5,10 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.wumple.megamap.commands.ModCommands;
 import com.wumple.megamap.megamap.FilledMegaMapItem;
+import com.wumple.megamap.megamap.MegaMapAPI;
 import com.wumple.megamap.megamap.MegaMapItem;
 import com.wumple.megamap.recipes.MegaMapCloningRecipe;
 import com.wumple.megamap.recipes.MegaMapExtendingRecipe;
-import com.wumple.megamap.util.RecipeRemover;
+import com.wumple.util.crafting.RecipeRemover;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -38,6 +39,9 @@ public class MegaMap	 /* extends ModBase */
 
 	public MegaMap()
 	{
+		// override XMapAPI in WumpleUtil with our own implementation
+		MegaMapAPI.setup();
+		
 		ConfigManager.register(ModLoadingContext.get());
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
