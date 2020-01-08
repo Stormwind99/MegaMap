@@ -3,7 +3,6 @@ package com.wumple.megamap.recipes;
 import com.wumple.megamap.MegaMap;
 import com.wumple.megamap.megamap.MegaMapAPI;
 import com.wumple.util.crafting.ShapedRecipe;
-import com.wumple.util.xmap.XMapAPI;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -85,7 +84,8 @@ public class MegaMapExtendingRecipe extends ShapedRecipe
 
 		if (itemstack != ItemStack.EMPTY)
 		{
-			newItemstack = MegaMapAPI.getInstance().copyMap(itemstack, 1);
+			// shallow copy okay since FilledMapItem.onCreated() with world available will scale it
+			newItemstack = MegaMapAPI.getInstance().copyMapShallow(itemstack, 1);
 			MegaMapAPI.getInstance().mapScaleDirection(newItemstack, 1);
 		}
 

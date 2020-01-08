@@ -2,11 +2,13 @@ package com.wumple.megamap.megamap;
 
 import com.wumple.megamap.ConfigManager;
 import com.wumple.megamap.ModObjectHolder;
+import com.wumple.util.misc.ItemStackUtil;
 import com.wumple.util.xmap.IXMapAPI;
 import com.wumple.util.xmap.XMapAPI;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 
 public class MegaMapAPI extends XMapAPI
@@ -26,26 +28,18 @@ public class MegaMapAPI extends XMapAPI
 	}
 	
 	@Override
-	public ItemStack copyMap(ItemStack itemstack, int i)
+	public ItemStack copyMapDeep(ItemStack itemstack, World worldIn)
 	{
 		// MAYBE check if itemstack is a valid map and return EMPTY if not?
-	
 		if (ConfigManager.General.disableVanillaRecipes.get() == true)
 		{
-			Item srcItem = itemstack.getItem();
-			ItemStack itemstack2;
-
-			srcItem = getFilledMapItem();
-			// from ItemStack.copy
-			itemstack2 = new ItemStack(srcItem, i);
-			itemstack2.setAnimationsToGo(itemstack.getAnimationsToGo());
-			if (itemstack.hasTag()) itemstack2.setTag(itemstack.getTag());
-			
-			return itemstack2;
+			ItemStack newstack = ItemStackUtil.pseudoClone(itemstack, getFilledMapItem());
+			cloneMapData(itemstack, newstack, worldIn);
+			return newstack;
 		}
 		else
 		{
-			return super.copyMap(itemstack, i);
+			return super.copyMapDeep(itemstack, worldIn);
 		}
 	}
 	
