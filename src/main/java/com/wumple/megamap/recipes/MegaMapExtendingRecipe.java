@@ -2,7 +2,7 @@ package com.wumple.megamap.recipes;
 
 import com.wumple.megamap.MegaMap;
 import com.wumple.megamap.megamap.MegaMapAPI;
-import com.wumple.util.crafting.ShapedRecipe;
+import com.wumple.util.crafting.XShapedRecipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 
-public class MegaMapExtendingRecipe extends ShapedRecipe
+public class MegaMapExtendingRecipe extends XShapedRecipe
 {
 	public MegaMapExtendingRecipe(ResourceLocation idIn, String groupIn, int recipeWidthIn, int recipeHeightIn,
 			NonNullList<Ingredient> recipeItemsIn, ItemStack recipeOutputIn)
