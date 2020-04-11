@@ -38,7 +38,7 @@ public class FillMegaMapCommand implements Command<CommandSource>
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException 
     { 	
     	CommandSource source = context.getSource();
-        World world = source.getWorld();
+        World world = source.func_197023_e(); // source.getWorld();
         
     	Entity entity = source.getEntity();
         ServerPlayerEntity player = source.asPlayer();
